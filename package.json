@@ -1,0 +1,26 @@
+{
+  "name": "lottery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shahabvshahabi1996/lottery-contract-solidity.git"
+  },
+  "keywords": [
+    "solidity",
+    "smartContract",
+    "nodejs",
+    "web3",
+    "mocha"
+  ],
+  "author": "Alireza Shahabi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shahabvshahabi1996/lottery-contract-solidity/issues"
+  },
+  "homepage": "https://github.com/shahabvshahabi1996/lottery-contract-solidity#readme"
+}
