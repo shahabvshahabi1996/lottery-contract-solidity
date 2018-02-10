@@ -76,7 +76,7 @@ describe('Lottery' , ()=>{
         try{
             await lottery.methods.enter().send({
                 from : accounts[0],
-                value : 0
+                value : web3.utils.toWei('0.01','ether')
             });
             assert(false);
         } catch(err){
@@ -84,4 +84,14 @@ describe('Lottery' , ()=>{
         }
     });
     
+    it('manager only can pick winner',async ()=>{
+        try{
+            await lottery.methods.pickWinner().call({
+                from : accounts[1]
+            });
+            assert(false);
+        }catch(err){
+            assert.ok(err);
+        }
+    });
 });
