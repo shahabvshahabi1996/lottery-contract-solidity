@@ -59,5 +59,17 @@ describe('Lottery' , ()=>{
         }
         assert.equal(3,players.length);
     });
+
+    it('entering requires a amount of ether',async()=>{
+        try{
+            await lottery.methods.enter().send({
+                from : accounts[1],
+                value : 0
+            });
+        } catch(err){
+            assert.ok(err);
+        }
+    });
+    
     
 });
