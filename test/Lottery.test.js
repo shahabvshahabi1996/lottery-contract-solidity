@@ -71,5 +71,15 @@ describe('Lottery' , ()=>{
         }
     });
     
+    it('manager cant enter the lottery',async()=>{
+        try{
+            await lottery.methods.enter().send({
+                from : accounts[0],
+                value : 0
+            });
+        } catch(err){
+            assert.ok(err);
+        }
+    });
     
 });
