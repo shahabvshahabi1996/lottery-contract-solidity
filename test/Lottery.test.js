@@ -25,5 +25,10 @@ describe('Lottery' , ()=>{
         assert.ok(lottery.options.address);
     });
 
+    it("has a manager",async()=>{
+        let manager = await lottery.methods.manager().call();
+        assert.equal(manager,accounts[0]);
+    });
+
     
 });
