@@ -43,4 +43,21 @@ describe('Lottery' , ()=>{
         assert.equal(players[0],accounts[1]);
         assert.equal(1,players.length);
     });
+
+    it("allows multiple accounts to enter(not the manager)", async()=>{
+        for(let i = 1; i <= 3 ; i++){
+            let enterTheGame = await lottery.methods.enter().send({
+                from : accounts[i],
+                value : web3.utils.toWei('0.01','ether')
+            });
+        }
+        let players = await lottery.methods.entryPlayers().call({
+            from : accounts[0]
+        });
+        for(let i=1;i<=3;i++){
+            assert.equal(players[i-1],accounts[i]);    
+        }
+        assert.equal(3,players.length);
+    });
+    
 });
