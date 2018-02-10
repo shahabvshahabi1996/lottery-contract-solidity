@@ -4,8 +4,9 @@ pragma solidity ^0.4.17;
 contract Lottery {
     
     address public manager;
-    address public theMainAccount; // the owner of site   
-    address[] public players;
+    address private winner;
+    
+    address[] private players;
     
     modifier isNotManager() {
         require(msg.sender != manager);
@@ -21,12 +22,16 @@ contract Lottery {
         for (uint i=0; i < players.length; i++) {
             require(msg.sender != players[0]);
         }
-
         _;
     }
     
     modifier validValue() {
         require(msg.value == .01 ether);
+        _;
+    }
+    
+    modifier isAnyPlayers() {
+        require(players.length > 0);
         _;
     }
     
@@ -38,19 +43,26 @@ contract Lottery {
         players.push(msg.sender);
     }
     
-    function pickWinner() public isManager payable  returns(address) {
+    function pickWinner() public isManager isAnyPlayers payable returns(address) {
         uint index = random();
-        uint share = (this.balance * 1) / 1000;
-        uint mainShare = (this.balance - share) * 1 / 10;
-        theMainAccount.transfer(mainShare);
+        uint share = (this.balance) / 10000;
+        winner = players[index];
+        
         manager.transfer(share);// manager will get 0.001% of the whole prize pool
-        players[index].transfer(this.balance - mainShare); // and the winner get the whole rest of the money
+        players[index].transfer(this.balance - share); // and the winner get the whole rest of the money
         players = new address[](0);
-        return players[index];
+        
+        return winner;
+    }
+
+    function entryPlayers() public view isManager returns(address[]) {
+        return players;
     }
 
     function random() private view returns(uint) {
         return uint(keccak256(block.difficulty, now, players)) % players.length;
     }
     
+    
+
 }
