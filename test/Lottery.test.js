@@ -19,3 +19,11 @@ beforeEach(async ()=>{
      .send({from : accounts[0] , gas : '1000000'})
     lottery.setProvider(provider);    
 });
+
+describe('Lottery' , ()=>{
+    it("it deploys a contract",()=>{
+        assert.ok(lottery.options.address);
+    });
+
+    
+});
