@@ -30,5 +30,17 @@ describe('Lottery' , ()=>{
         assert.equal(manager,accounts[0]);
     });
 
-    
+    it("allows one account to enter(not the manager)", async()=>{
+        let enterTheGame = await lottery.methods.enter().send({
+            from : accounts[1],
+            value : web3.utils.toWei('0.01','ether')
+        });
+
+        let players = await lottery.methods.entryPlayers().call({
+            from : accounts[0]
+        });
+
+        assert.equal(players[0],accounts[1]);
+        assert.equal(1,players.length);
+    });
 });
