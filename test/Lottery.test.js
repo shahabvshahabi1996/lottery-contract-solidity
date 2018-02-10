@@ -66,6 +66,7 @@ describe('Lottery' , ()=>{
                 from : accounts[1],
                 value : 0
             });
+            assert(false);
         } catch(err){
             assert.ok(err);
         }
@@ -77,6 +78,7 @@ describe('Lottery' , ()=>{
                 from : accounts[0],
                 value : 0
             });
+            assert(false);
         } catch(err){
             assert.ok(err);
         }
