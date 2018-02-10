@@ -94,4 +94,42 @@ describe('Lottery' , ()=>{
             assert.ok(err);
         }
     });
+
+    it("sends money to the winner and resets the players array",async () => {
+        await lottery.methods.enter().send({
+            from : accounts[1],
+            value : web3.utils.toWei('0.01', 'ether')
+        });
+        const initalBalance = await web3.eth.getBalance(accounts[1]);
+
+        await lottery.methods.pickWinner().send({
+            from : accounts[0]
+        });
+
+        const finalBalance = await web3.eth.getBalance(accounts[1]);
+
+        const diffrence = finalBalance - initalBalance;
+
+        assert(diffrence > web3.utils.toWei('0.008','ether'));
+        
+        const players = await lottery.methods.entryPlayers().call();
+        assert.equal(0,players.length);
+    });
+
+    it("sends the manager share",async()=>{
+        for(let i=1;i<5;i++){
+            await lottery.methods.enter().send({
+                from : accounts[i],
+                value : web3.utils.toWei('0.01', 'ether')
+            }); 
+        }
+        const initialManagerBalance = await web3.eth.getBalance(accounts[0]);
+        
+        await lottery.methods.pickWinner().send({
+            from : accounts[0]
+        });
+
+        const finalManagerBalance = await web3.eth.getBalance(accounts[0]);
+        assert(finalManagerBalance > initialManagerBalance);
+    });
 });
