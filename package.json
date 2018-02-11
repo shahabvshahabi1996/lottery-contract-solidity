@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
-  },
+    "test": "mocha",
+    "deploy" : "node deplot.js"
+  }, 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shahabvshahabi1996/lottery-contract-solidity.git"
