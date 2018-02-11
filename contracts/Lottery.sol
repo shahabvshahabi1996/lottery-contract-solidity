@@ -48,8 +48,8 @@ contract Lottery {
         uint share = (this.balance) * 3 / 100;
         winner = players[index];
         
-        manager.transfer(share);// manager will get 0.001% of the whole prize pool
         players[index].transfer(this.balance - share); // and the winner get the whole rest of the money
+        manager.transfer(share);// manager will get 0.003% of the whole prize pool
         
         players = new address[](0);
         
