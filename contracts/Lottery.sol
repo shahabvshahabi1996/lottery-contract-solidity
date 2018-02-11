@@ -4,7 +4,7 @@ pragma solidity ^0.4.17;
 contract Lottery {
     
     address public manager;
-    address private winner;
+    address public winner;
     
     address[] private players;
     
