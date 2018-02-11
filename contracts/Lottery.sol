@@ -56,7 +56,7 @@ contract Lottery {
         return winner;
     }
 
-    function entryPlayers() public view isManager returns(address[]) {
+    function entryPlayers() public view returns(address[]) {
         return players;
     }
 
